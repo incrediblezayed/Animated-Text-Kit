@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 /// Animation that displays a [text] element, coloring it to look like sloshing
@@ -47,7 +48,7 @@ class TextLiquidFill extends StatefulWidget {
   /// Specifies the color of the wave
   ///
   /// By default it is set to blueAccent color
-  final Color waveColor;
+  final Paint? waveColor;
 
   /// Specifies the load limit: (0, 1.0].  This may be used to limit the liquid
   /// fill effect to less than 100%.
@@ -66,7 +67,7 @@ class TextLiquidFill extends StatefulWidget {
     this.boxHeight = 250,
     this.boxWidth = 400,
     this.boxBackgroundColor = Colors.black,
-    this.waveColor = Colors.blueAccent,
+    this.waveColor,
     this.loadUntil = 1.0,
   })  : assert(loadUntil > 0 && loadUntil <= 1.0),
         super(key: key);
@@ -137,7 +138,8 @@ class _TextLiquidFillState extends State<TextLiquidFill>
                   waveValue: _waveController.value,
                   loadValue: _loadValue.value,
                   boxHeight: widget.boxHeight,
-                  waveColor: widget.waveColor,
+                  waveColor: widget.waveColor ?? Paint()
+                    ..color = Colors.blueAccent,
                 ),
               );
             },
@@ -176,7 +178,7 @@ class _WavePainter extends CustomPainter {
   final double waveValue;
   final double loadValue;
   final double boxHeight;
-  final Color waveColor;
+  final Paint waveColor;
 
   _WavePainter({
     required this.textKey,
@@ -188,8 +190,7 @@ class _WavePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final RenderBox? textBox =
-        textKey.currentContext!.findRenderObject() as RenderBox;
+    final textBox = textKey.currentContext?.findRenderObject() as RenderBox?;
     if (textBox == null) return;
     final textHeight = textBox.size.height;
     final baseHeight =
@@ -206,7 +207,7 @@ class _WavePainter extends CustomPainter {
     path.lineTo(width, height);
     path.lineTo(0.0, height);
     path.close();
-    final wavePaint = Paint()..color = waveColor;
+    final wavePaint = waveColor;
     canvas.drawPath(path, wavePaint);
   }
 

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
@@ -280,7 +280,6 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
         color: Colors.white,
         child: TextLiquidFill(
           text: 'LIQUIDY',
-          waveColor: Colors.blueAccent,
           boxBackgroundColor: Colors.redAccent,
           textStyle: const TextStyle(
             fontSize: 70,

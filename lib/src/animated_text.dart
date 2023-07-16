@@ -213,6 +213,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   void _initAnimation() {
     _currentAnimatedText = widget.animatedTexts[_index];
+    print(_currentAnimatedText.text);
 
     _controller = AnimationController(
       duration: _currentAnimatedText.duration,

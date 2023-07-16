@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'animated_text.dart';
 
 /// Animated Text that shows text shimmering between [colors].
@@ -20,14 +21,16 @@ class ColorizeAnimatedText extends AnimatedText {
   /// By default it is set to [TextDirection.ltr]
   final TextDirection textDirection;
 
-  ColorizeAnimatedText(
-    String text, {
-    TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
-    this.speed = const Duration(milliseconds: 200),
-    required this.colors,
-    this.textDirection = TextDirection.ltr,
-  })  : assert(null != textStyle.fontSize),
+  final Key? key;
+
+  ColorizeAnimatedText(String text,
+      {TextAlign textAlign = TextAlign.start,
+      required TextStyle textStyle,
+      this.speed = const Duration(milliseconds: 200),
+      required this.colors,
+      this.textDirection = TextDirection.ltr,
+      this.key})
+      : assert(null != textStyle.fontSize),
         assert(colors.length > 1),
         super(
           text: text,
@@ -96,6 +99,7 @@ class ColorizeAnimatedText extends AnimatedText {
       style: textStyle,
       child: Text(
         text,
+        key: key,
         style: TextStyle(foreground: Paint()..shader = linearGradient),
         textAlign: textAlign,
       ),
